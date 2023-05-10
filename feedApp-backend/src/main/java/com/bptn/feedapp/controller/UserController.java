@@ -24,24 +24,26 @@ import com.bptn.feedapp.jpa.Profile;
 
 
 @CrossOrigin(exposedHeaders = "Authorization")
+// @RestController annotation tells spring that this class is a controller and will process user requests
 @RestController
+// @RequestMapping maps request to handlers /user will be served by this controller
 @RequestMapping("/user")
 public class UserController {
 	
+	// Logger variale is used to check the activity of the Controller
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	UserService userService;
 	
-	
+	// GetMapping is telling use that testController() will handle requests
 	@GetMapping("/test")
 	public String testController() {
-		
+		// Call the debug() method from logger and print out a comment
 		logger.debug("The testController() method was invoked!");
-		
+		// return the results 
 		return "The FeedApp application is up and running";
-		
-		
+		// --> dont forget to setup logger in yml file to track activity
 	}
 	
 	@GetMapping("/")
