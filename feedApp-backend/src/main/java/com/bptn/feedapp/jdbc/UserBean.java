@@ -14,7 +14,7 @@ public class UserBean {
 	private Boolean emailVerified;
 	private Timestamp createdOn;
 	
-	
+	// Getters & Setters
 	public Integer getUserId() {
 		return userId;
 	}
@@ -69,6 +69,8 @@ public class UserBean {
 	public void setCreatedOn(Timestamp createdOn) {
 		this.createdOn = createdOn;
 	}
+
+	// toString() Method
 	@Override
 	public String toString() {
 		return "UserBean [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", username="

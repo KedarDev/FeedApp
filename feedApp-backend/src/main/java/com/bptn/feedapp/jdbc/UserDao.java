@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+// Tells us this class is a repo
 @Repository
 public class UserDao {
 
+	// instence variable 
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
+	@Autowired // Tells Spring to inject a JdbcTemplate instence into a jdbcTemplate variable 
 	JdbcTemplate jdbcTemplate;
 
+	// retrive all users in DB
 	public List<UserBean> listUsers() {
 
 		String sql = "SELECT * FROM \"User\"";
@@ -24,6 +27,7 @@ public class UserDao {
 
 	}
 
+	// Find Users by username
 	public UserBean findByUsername(String username) {
 
 		String sql = "SELECT * FROM \"User\" WHERE username = ?";
@@ -38,6 +42,7 @@ public class UserDao {
 
 	}
 
+	// Inserts Users into DB
 	public void createUser(UserBean user) {
 
 		String sql = "INSERT INTO \"User\" (\"firstName\", \"lastName\", username, phone, \"emailId\", password, \"emailVerified\", \"createdOn\") VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

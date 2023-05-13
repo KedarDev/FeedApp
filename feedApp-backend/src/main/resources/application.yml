@@ -1,10 +1,11 @@
-# Logger
+
+# Logger 
 logging.level:
   web: DEBUG
   '[com.bptn.feedapp]' : DEBUG
   
   
-# Active Profile
+# Active Profile / defualt config
 spring:
   profiles:
     active: default
@@ -14,6 +15,7 @@ spring:
     charset: UTF-8
     location: classpath:/banner/academy.txt
     
+# Date format config settings Used by the controller     
 # Jackson Settings
   jackson:
     time-zone: America/Toronto
@@ -37,20 +39,26 @@ spring:
   sql:
     init:
       continue-on-error: false
+#  Tells Spring to abort starting the application if any of our database configurations fails. 
   jpa:
     show-sql: true
     open-in-view: false
+#  - Tells Hibernate* to print out the SQL statements generated in the console
     properties:  
       jakarta:
         persistence:
           sharedCache:
             mode: ENABLE_SELECTIVE
+# Tells JPA that we will manually specify which JPA Entities will be second-level cached.
       hibernate:
         '[format_sql]': true        
+# Tells Hibernate to format the SQL statements it generates before printing them out
     hibernate:
       naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      
+# Allows Hibernate to use camelCase to access the database table names.
 ---
+
+# ==>SPRING JDBC CONFIGURATION<==
 
 # Always active
 # Default Profile
@@ -60,13 +68,13 @@ spring:
       on-profile: default 
        
 # Database Settings
-  datasource:
-    url: jdbc:postgresql://localhost:5432/feedAppModal
-    username: postgres
-    password: pg123
-    hikari:
+  datasource: 
+    url: jdbc:postgresql://localhost:5432/feedAppModal #  Database URL
+    username: postgres # Database username
+    password: pg123 # Database password
+    hikari: # Spring uses hikari for a connection pool to the DB
       maximum-pool-size: 2
-  jpa:
+  jpa: # Tells Hibernate to validate the JPA Entities versus the database tables. Throws an Exception if the validation fails.
     hibernate:
       ddl-auto: validate    
       

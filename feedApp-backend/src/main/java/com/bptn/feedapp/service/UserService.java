@@ -28,11 +28,13 @@ import java.util.function.Supplier;
 import org.springframework.util.StringUtils;
 import com.bptn.feedapp.jpa.Profile;
 
+// Tells spring this is a service class
 @Service
 public class UserService {
-
+	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	// @Autowired Inject your instences with your variables 
 	@Autowired
 	UserRepository userRepository;
 
@@ -51,22 +53,28 @@ public class UserService {
 	@Autowired
 	ResourceProvider provider;
 
+	// Retrieve all users
 	public List<User> listUsers() {
 
 		return this.userRepository.findAll();
 
 	}
 
+	// Find users by Username
 	public Optional<User> findByUsername(String username) {
 
 		return this.userRepository.findByUsername(username);
 	}
 
+	// Create User
 	public void createUser(User user) {
 
+
+		// save to the repo
 		this.userRepository.save(user);
 	}
 
+	// User Sign up
 	public User signup(User user) {
 
 		user.setUsername(user.getUsername().toLowerCase());

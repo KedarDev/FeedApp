@@ -33,6 +33,7 @@ public class UserController {
 	// Logger variale is used to check the activity of the Controller
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	// inject instance with variable
 	@Autowired
 	UserService userService;
 	
@@ -46,6 +47,8 @@ public class UserController {
 		// --> dont forget to setup logger in yml file to track activity
 	}
 	
+	// Get all Users in the DB
+	// Get Mapping tells use that this method is an endpoint API
 	@GetMapping("/")
 	public List<User> listUsers() {
 		
@@ -54,9 +57,10 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/{username}")
-	public Optional<User> findByUsername(@PathVariable String username) {
-		
+	// Find User by username
+	@GetMapping("/{username}") // {username} the brackets tell use that this is a parameter in the table
+	public Optional<User> findByUsername(@PathVariable String username) { // @PathVariable handles template vars in request URL mapping
+                                                                         // & sets them as method params
 		logger.debug("The findByUsername() method was invoked!, username={}", username);
 		return this.userService.findByUsername(username);
 		
