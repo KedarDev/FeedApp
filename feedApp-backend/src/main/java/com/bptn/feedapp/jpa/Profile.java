@@ -15,16 +15,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name="\"Profile\"")
-public class Profile implements Serializable {
+
+@Entity // @Entity lets us know that Profile is an entity in our DB
+@Table(name="\"Profile\"") // @table used to specify the name of the DB table associated with this entity
+public class Profile implements Serializable { // Serializable interface tells us this class is a serializable 
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; // unique identifier used for serialization and deserialization 
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="\"profileId\"")
-	@JsonProperty(access = Access.WRITE_ONLY)
+	@Id // PRIMARY KEY
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // Auto generated type IDENTITY
+	@Column(name="\"profileId\"") // Mapping feild to a Column in the DB
+	// @JsonProperty used to customize the serialization and deserialization when converting to JSON
+	@JsonProperty(access = Access.WRITE_ONLY) // WRITE_ONLY access means the field can only be serialized not deserialized 
 	private Integer profileId;
 	
 	
@@ -34,16 +36,19 @@ public class Profile implements Serializable {
 	private String headline;
 	private String picture;
 	
-	@OneToOne
-	@JsonIgnore
-	@JoinColumn(name="\"userId\"")
+	@OneToOne 
+	@JsonIgnore // annotation tells spring to ignore while serializing and deserializing
+	@JoinColumn(name="\"userId\"") // FK a column that joins two entities together
+	// declare user tpye from user class
 	private User user;
 	
+	// default constructor
 	public Profile() {
 		
 		
 	}
 
+	// Getters & Setters
 	public Integer getProfileId() {
 		return profileId;
 	}
@@ -100,6 +105,7 @@ public class Profile implements Serializable {
 		this.user = user;
 	}
 
+	// toString method
 	@Override
 	public String toString() {
 		return "Profile [profileId=" + profileId + ", bio=" + bio + ", city=" + city + ", country=" + country

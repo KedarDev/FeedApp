@@ -44,11 +44,14 @@ public class Feed implements Serializable {
 	@JsonInclude(Include.NON_NULL)
 	@OneToMany(mappedBy="feed", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<FeedMetaData> feedMetaData;
-	
+
+	// default constructor
 	public Feed() {	
 		
 	}
 
+
+	// GETTERS & SETTERS
 	public Integer getFeedId() {
 		return feedId;
 	}
@@ -97,6 +100,7 @@ public class Feed implements Serializable {
 		this.feedMetaData = feedMetaData;
 	}
 
+	// toString method
 	@Override
 	public String toString() {
 		return "Feed [feedId=" + feedId + ", picture=" + picture + ", content=" + content + ", createdOn=" + createdOn

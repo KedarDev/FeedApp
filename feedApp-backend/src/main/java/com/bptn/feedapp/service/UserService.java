@@ -34,7 +34,7 @@ public class UserService {
 	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	// @Autowired Inject your instences with your variables 
+	// @Autowired Inject your instances with your variables 
 	@Autowired
 	UserRepository userRepository;
 
