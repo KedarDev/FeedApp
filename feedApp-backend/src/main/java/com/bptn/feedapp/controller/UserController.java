@@ -91,11 +91,11 @@ public class UserController {
 
 }
 	
-	@PostMapping("/signup")
-	public User signup(@RequestBody User user) {	
-		logger.debug("Signing up, username: {}", user.getUsername());
+	@PostMapping("/signup") // Set up endpoint
+	public User signup(@RequestBody User user) { // @RequestBody annotation maps the HttpRequest body
+		logger.debug("Signing up, username: {}", user.getUsername()); // log signup activity 
 		
-		return this.userService.signup(user);
+		return this.userService.signup(user); // pass the User object to the sign up method in userService return user object with signUp method
 		
 	}
 	

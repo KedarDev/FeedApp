@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 import com.bptn.feedapp.provider.factory.YamlPropertySourceFactory;
 
-@Component
-@PropertySource(value = "classpath:config.yml", factory = YamlPropertySourceFactory.class)
+@Component // This class will be Treated as a spring component
+@PropertySource(value = "classpath:config.yml", factory = YamlPropertySourceFactory.class) // specify the location of the config.yml
 public class ResourceProvider {
 
-	@Value("${jwt.secret}")
+	// @Value annotation is used to inject values of several config properties from config.yml
+	@Value("${jwt.secret}") // property name "jwt.secret" placeholder
 	private String jwtSecret;
 
 	@Value("${jwt.expiration}")
@@ -43,6 +44,7 @@ public class ResourceProvider {
 	@Value("${client.email.reset.expiration}")
 	private long clientResetExpiration;
 
+	// GETTERS & SETTERS
 	public String getJwtSecret() {
 		return jwtSecret;
 	}

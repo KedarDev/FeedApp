@@ -14,15 +14,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name="\"FeedMetaData\"")
-public class FeedMetaData implements Serializable {
+@Entity // @Entity annotation marks this class as a persistent entity in the database
+@Table(name="\"FeedMetaData\"") // @Table annotation is used to specify the name of the database table associated with this entity.
+public class FeedMetaData implements Serializable { // Serializable is a marker interface in Java that tells the compiler that the class is serializable.
 	
+	//his is a unique identifier for the class version used for serialization and deserialization
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="\"feedMetaDataId\"")
+	@Id //PK
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // PK generated automatically, type IDENTITY 
+	@Column(name="\"feedMetaDataId\"") // mapping of the annotated field to a column in the database table
 	private Integer feedMetaDataId;
 	
 	private String comment;
@@ -33,20 +34,21 @@ public class FeedMetaData implements Serializable {
 	@Column(name="\"isLike\"")
 	private Boolean isLike;
 	
-	@ManyToOne
-	@JsonIgnore
+	@ManyToOne // relationship type
+	@JsonIgnore // @JsonIgnore annotation on the feed field specifies that this field should be excluded from the JSON representation of the entity
 	@JoinColumn(name="\"feedId\"")
 	private Feed feed;
 	
 	@ManyToOne
-	@JoinColumn(name="\"actionUserId\"")
+	@JoinColumn(name="\"actionUserId\"") // FK
 	private User user;
 	
+	// Default constructor
 	public FeedMetaData() {
-		
 		
 	}
 
+	// Getter & Setters
 	public Integer getFeedMetaDataId() {
 		return feedMetaDataId;
 	}
@@ -94,7 +96,5 @@ public class FeedMetaData implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
     
 }

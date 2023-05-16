@@ -19,37 +19,35 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name="\"Feed\"")
-public class Feed implements Serializable {
-	
-	private static final long serialVersionUID = 1L; 
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="\"feedId\"")
+@Entity // Makes class a persistent entity in the DB
+@Table(name = "\"Feed\"") // name of table in database
+public class Feed implements Serializable { // maker interface enables the ability
+
+	private static final long serialVersionUID = 1L; // unique identifier
+
+	@Id // PK
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto generated, type Identity
+	@Column(name = "\"feedId\"") // Mapping class feedId to table feedId
 	private Integer feedId;
-	
+
 	private String picture;
-	
+
 	private String content;
-	
-	@Column(name="\"createdOn\"")
+
+	@Column(name = "\"createdOn\"")
 	private Timestamp createdOn;
-	
-	@ManyToOne
-	@JoinColumn(name="\"userId\"")
+
+	@ManyToOne // relationship between feed entity & user entity
+	@JoinColumn(name = "\"userId\"") // FK
 	private User user;
-	
-	@JsonInclude(Include.NON_NULL)
-	@OneToMany(mappedBy="feed", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+
+	@JsonInclude(Include.NON_NULL) // this annotation insures Feed metadata should not be included in the JSON output
+	@OneToMany(mappedBy = "feed", cascade = CascadeType.ALL, fetch = FetchType.EAGER) // mappedby tells use this relation is mapped by feed entity & FeedMetaData entity
 	private List<FeedMetaData> feedMetaData;
+	// cascade=CascadeType.ALL specifies that any operation (insert, update, delete) performed on a Feed object should also be performed on its associated FeedMetaData objects default constructor
+	public Feed() {
 
-	// default constructor
-	public Feed() {	
-		
 	}
-
 
 	// GETTERS & SETTERS
 	public Integer getFeedId() {
@@ -107,10 +105,4 @@ public class Feed implements Serializable {
 				+ "]";
 	}
 
-	
-
-	
-	
-	
-	
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bptn.feedapp.jpa.User;
 
-// The User can now use methods from thr Jpa interface
+// The User can now use methods from the Jpa interface
 public interface UserRepository extends JpaRepository<User, Integer> {
 	
     // Methods

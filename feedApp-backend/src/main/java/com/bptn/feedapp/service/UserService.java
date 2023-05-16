@@ -28,14 +28,12 @@ import java.util.function.Supplier;
 import org.springframework.util.StringUtils;
 import com.bptn.feedapp.jpa.Profile;
 
-// Tells spring this is a service class
-@Service
+@Service // Tells spring this is a service class
 public class UserService {
 	
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	// @Autowired Inject your instances with your variables 
-	@Autowired
+	@Autowired // @Autowired Inject your instances with your variables 
 	UserRepository userRepository;
 
 	@Autowired
@@ -74,22 +72,22 @@ public class UserService {
 		this.userRepository.save(user);
 	}
 
-	// User Sign up
+	// User Sign up creates a user
 	public User signup(User user) {
 
-		user.setUsername(user.getUsername().toLowerCase());
-		user.setEmailId(user.getEmailId().toLowerCase());
+		user.setUsername(user.getUsername().toLowerCase()); // convert username to lower case
+		user.setEmailId(user.getEmailId().toLowerCase()); // convert email to lower case
 
 		this.validateUsernameAndEmail(user.getUsername(), user.getEmailId());
 
-		user.setEmailVerified(false);
+		user.setEmailVerified(false); // set emailVerified to false
 		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
-		user.setCreatedOn(Timestamp.from(Instant.now()));
+		user.setCreatedOn(Timestamp.from(Instant.now())); // timestamp
 
 		this.emailService.sendVerificationEmail(user);
 
-		this.userRepository.save(user);
-		return user;
+		this.userRepository.save(user); // save the user to the DB
+		return user; // return the user object
 
 	}
 
