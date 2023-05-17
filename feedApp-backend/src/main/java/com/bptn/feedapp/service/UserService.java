@@ -30,10 +30,10 @@ import com.bptn.feedapp.jpa.Profile;
 
 @Service // Tells spring this is a service class
 public class UserService {
-	
+
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired // @Autowired Inject your instances with your variables 
+	@Autowired // @Autowired Inject your instances with your variables
 	UserRepository userRepository;
 
 	@Autowired
@@ -66,7 +66,6 @@ public class UserService {
 
 	// Create User
 	public void createUser(User user) {
-
 
 		// save to the repo
 		this.userRepository.save(user);
@@ -166,34 +165,34 @@ public class UserService {
 
 		this.userRepository.save(user);
 	}
-	
+
 	public User getUser() {
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		/* Get User from the DB. */
 		return this.userRepository.findByUsername(username)
-	.orElseThrow(() -> new UserNotFoundException(String.format("Username doesn't exist, %s",username)));
+				.orElseThrow(() -> new UserNotFoundException(String.format("Username doesn't exist, %s", username)));
 	}
 
 	private void updateValue(Supplier<String> getter, Consumer<String> setter) {
-		
+
 		Optional.ofNullable(getter.get())
-		        //.filter(StringUtils::hasText)
-			       .map(String::trim)
-			       .ifPresent(setter);
+				// .filter(StringUtils::hasText)
+				.map(String::trim)
+				.ifPresent(setter);
 	}
-	
+
 	private void updatePassword(Supplier<String> getter, Consumer<String> setter) {
 
-	    Optional.ofNullable(getter.get())
-	               .filter(StringUtils::hasText)
-	               .map(this.passwordEncoder::encode)
-				   .ifPresent(setter);
+		Optional.ofNullable(getter.get())
+				.filter(StringUtils::hasText)
+				.map(this.passwordEncoder::encode)
+				.ifPresent(setter);
 	}
-	
-private User updateUser(User user, User currentUser) {
-	    
+
+	private User updateUser(User user, User currentUser) {
+
 		this.updateValue(user::getFirstName, currentUser::setFirstName);
 		this.updateValue(user::getLastName, currentUser::setLastName);
 		this.updateValue(user::getPhone, currentUser::setPhone);
@@ -201,51 +200,52 @@ private User updateUser(User user, User currentUser) {
 		this.updatePassword(user::getPassword, currentUser::setPassword);
 
 		return this.userRepository.save(currentUser);
-}
-
-public User updateUser(User user) {
-	
-	String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-	/* Validates the new email if provided */
-	this.userRepository.findByEmailId(user.getEmailId())
-                            .filter(u->!u.getUsername().equals(username))
-                            .ifPresent(u -> {throw new EmailExistException(String.format("Email already exists, %s", u.getEmailId()));});
-	    
-	/* Get and Update User */	
-	return this.userRepository.findByUsername(username)
-				            .map(currentUser -> this.updateUser(user, currentUser))
-				            .orElseThrow(()-> new UserNotFoundException(String.format("Username doesn't exist, %s", username)));
-}
-
-private User updateUserProfile(Profile profile, User user) {
-
-	Profile currentProfile = user.getProfile();
-
-	if (Optional.ofNullable(currentProfile).isPresent()) {
-
-		this.updateValue(profile::getHeadline, currentProfile::setHeadline);
-		this.updateValue(profile::getBio, currentProfile::setBio);
-		this.updateValue(profile::getCity, currentProfile::setCity);
-		this.updateValue(profile::getCountry, currentProfile::setCountry);
-		this.updateValue(profile::getPicture, currentProfile::setPicture);
-	} 
-    else {
-		user.setProfile(profile);
-		profile.setUser(user);
 	}
 
-	return this.userRepository.save(user);
-}
+	public User updateUser(User user) {
 
-public User updateUserProfile(Profile profile) {
-	
-	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-	/* Get and Update User */	
-	return this.userRepository.findByUsername(username)
-	              .map(user -> this.updateUserProfile(profile, user))
-                  .orElseThrow(()-> new UserNotFoundException(String.format("Username doesn't exist, %s", username)));
-}
-	
+		/* Validates the new email if provided */
+		this.userRepository.findByEmailId(user.getEmailId())
+				.filter(u -> !u.getUsername().equals(username))
+				.ifPresent(u -> {
+					throw new EmailExistException(String.format("Email already exists, %s", u.getEmailId()));
+				});
+
+		/* Get and Update User */
+		return this.userRepository.findByUsername(username)
+				.map(currentUser -> this.updateUser(user, currentUser))
+				.orElseThrow(() -> new UserNotFoundException(String.format("Username doesn't exist, %s", username)));
+	}
+
+	private User updateUserProfile(Profile profile, User user) {
+
+		Profile currentProfile = user.getProfile();
+
+		if (Optional.ofNullable(currentProfile).isPresent()) {
+
+			this.updateValue(profile::getHeadline, currentProfile::setHeadline);
+			this.updateValue(profile::getBio, currentProfile::setBio);
+			this.updateValue(profile::getCity, currentProfile::setCity);
+			this.updateValue(profile::getCountry, currentProfile::setCountry);
+			this.updateValue(profile::getPicture, currentProfile::setPicture);
+		} else {
+			user.setProfile(profile);
+			profile.setUser(user);
+		}
+
+		return this.userRepository.save(user);
+	}
+
+	public User updateUserProfile(Profile profile) {
+
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		/* Get and Update User */
+		return this.userRepository.findByUsername(username)
+				.map(user -> this.updateUserProfile(profile, user))
+				.orElseThrow(() -> new UserNotFoundException(String.format("Username doesn't exist, %s", username)));
+	}
+
 }

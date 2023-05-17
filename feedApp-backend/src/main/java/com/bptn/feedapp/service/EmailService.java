@@ -17,15 +17,15 @@ import com.bptn.feedapp.security.JwtService;
 
 import jakarta.mail.internet.MimeMessage;
 
-@Service
+@Service // Spring service component 
 public class EmailService {
 
-	final Logger logger = LoggerFactory.getLogger(this.getClass());
+	final Logger logger = LoggerFactory.getLogger(this.getClass()); // log activity
 
-	@Value("${spring.mail.username}")
+	@Value("${spring.mail.username}") // @Value reads the spring.mail.username property from application configuration
 	private String emailFrom;
 
-	@Autowired
+	@Autowired // inject object with instance variable 
 	JwtService jwtService;
 
 	@Autowired
