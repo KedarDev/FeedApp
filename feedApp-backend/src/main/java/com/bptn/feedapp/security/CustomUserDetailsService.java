@@ -10,10 +10,10 @@ import com.bptn.feedapp.jpa.User;
 import java.util.Optional;
 
 
-@Service("UserDetailsService")
+@Service("UserDetailsService") // Spring service component
 public class CustomUserDetailsService implements UserDetailsService {
 
-	
+	// inject instance
 	@Autowired
 	UserRepository userRepository;
 	

@@ -6,12 +6,13 @@ import java.text.SimpleDateFormat;
 
 public class HttpResponse {
 
-	Date timeStamp;
+	Date timeStamp; //  object that stores the date and time
 	int httpStatusCode; // 200, 201, 400, 500
-	HttpStatus httpStatus;
-	String reason;
-	String message;
+	HttpStatus httpStatus; // stores HTTP status response such as OK, CREATED, BAD_REQUEST, or INTERNAL_SERVER_ERROR
+	String reason; // stores the reason for the HTTP response
+	String message; // stores the message for the HTTP response.
 	
+	// Contractor 
 	 public HttpResponse(int httpStatusCode, HttpStatus httpStatus, String reason, String message) {
 	        this.timeStamp = new Date();
 	        this.httpStatusCode = httpStatusCode;
@@ -20,6 +21,7 @@ public class HttpResponse {
 	        this.message = message;
 	}
 
+	// Getters & Setters
 	public Date getTimeStamp() {
 		return timeStamp;
 	}
@@ -40,6 +42,7 @@ public class HttpResponse {
 		return message;
 	}
 	
+	// toString()
 	@Override
 	public String toString() {
 			

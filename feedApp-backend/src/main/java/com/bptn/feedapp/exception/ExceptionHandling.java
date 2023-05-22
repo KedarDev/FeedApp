@@ -37,12 +37,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.bptn.feedapp.exception.domain.EmailExistException;
 
 
-@RestController
-@RestControllerAdvice
+@RestController // indicates that the annotated class is a RESTful web service controller, combines @RestController & @ResponseBody annotations
+@RestControllerAdvice // @ControllerAdvice annotation that marks a class as a global exception handler for RESTful web services.
 public class ExceptionHandling implements ErrorController {
 	
+	// Log activity
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
+
+	// Spring Error Constants
 	private static final String TOKEN_DECODE_ERROR = "Token Decode Error";
 	private static final String TOKEN_EXPIRED_ERROR = "Token has Expired";
 	private static final String ACCOUNT_LOCKED = "Your account has been locked. Please contact administration";
@@ -55,11 +58,13 @@ public class ExceptionHandling implements ErrorController {
 	private static final String NO_MAPPING_EXIST_URL = "There is no mapping for this URL";
 	private static final String ERROR_PATH = "/error";
 	
+	// HTTP Resoinse Method
 	private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
-	    return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus,
+	    return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, // HTTP instence 
 	    			httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus);
 	}
 	
+	// Exceptions
 	@ExceptionHandler(JWTDecodeException.class)
 	public ResponseEntity<HttpResponse> tokenDecodeException() {
 	    return this.createHttpResponse(BAD_REQUEST, TOKEN_DECODE_ERROR);

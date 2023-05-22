@@ -1,3 +1,6 @@
+// WebSecurityConfig class for Spring Security. It is responsible for defining the security rules for the application and
+//  configuring the necessary filters and authentication mechanisms.
+
 package com.bptn.feedapp.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -22,36 +25,38 @@ public class WebSecurityConfig {
 
 	@Autowired
 	ResourceProvider provider;
-		
+
 	@Autowired
 	JwtAuthorizationFilter jwtAuthorizationFilter;
 
 	@Autowired
 	CustomAuthEntryPoint customAuthEntryPoint;
+
 	
-	@Bean
+	@Bean // returns an instance of BCryptPasswordEncoder. This bean is used to encode passwords and verify them during authentication
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-	        return authenticationConfiguration.getAuthenticationManager();
-	}
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-			http.cors().and().csrf().disable()
-			  .sessionManagement().sessionCreationPolicy(STATELESS)
-	.and().authorizeHttpRequests().requestMatchers(this.provider.getJwtExcludedUrls()).permitAll()
-	          .anyRequest().authenticated()
-	          .and()
-	          .exceptionHandling()
-	          .authenticationEntryPoint(this.customAuthEntryPoint)
-	          .and()
-	          .addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
 
-			return http.build();
+	@Bean //  responsible for authenticating users
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) //required to create an instance of AuthenticationManager
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager(); 
 	}
-	
+
+	@Bean // configures the security filter chain for the application
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.cors().and().csrf().disable()
+				.sessionManagement().sessionCreationPolicy(STATELESS)
+				.and().authorizeHttpRequests().requestMatchers(this.provider.getJwtExcludedUrls()).permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.exceptionHandling()
+				.authenticationEntryPoint(this.customAuthEntryPoint)
+				.and()
+				.addFilterBefore(this.jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
+
 }

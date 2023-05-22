@@ -25,9 +25,10 @@ import static org.springframework.http.HttpMethod.OPTIONS;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-@Component
+@Component // Spring-managed component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
+	// log activity
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -37,7 +38,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 	ResourceProvider provider;
 
 	@Autowired
-	@Qualifier("handlerExceptionResolver")
+	@Qualifier("handlerExceptionResolver") // Qualifier used with the created instance to handle jwtAuthorization
 	HandlerExceptionResolver resolver;
 
 	@Override
@@ -80,6 +81,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
 	}
 
+	// check if token is valid
 	private boolean isJwtPrefixValid(String header) {
 
 		logger.debug("Authorization Header: {}", Optional.ofNullable(header).orElse("Not Present"));

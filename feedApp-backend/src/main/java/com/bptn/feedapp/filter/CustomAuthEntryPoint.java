@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 
-@Component
+@Component // spring managed component 
 public class CustomAuthEntryPoint implements AuthenticationEntryPoint {
 
-	@Autowired
+	@Autowired // instance
 	@Qualifier("handlerExceptionResolver")
 	HandlerExceptionResolver resolver;
 	
