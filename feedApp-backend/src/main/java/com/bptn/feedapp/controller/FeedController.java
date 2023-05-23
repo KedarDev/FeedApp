@@ -18,14 +18,17 @@ import com.bptn.feedapp.jpa.FeedMetaData;
 import com.bptn.feedapp.service.FeedService;
 
 @CrossOrigin
-@RestController
-@RequestMapping("/feeds")
+@RestController // Spring Controller
+@RequestMapping("/feeds") // map request to handler
 public class FeedController {
 	
+	// log activity
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	// inject instance
 	@Autowired
 	FeedService feedService;
+	
 	
 	@PostMapping
 	public Feed createFeed(@RequestBody Feed feed) {

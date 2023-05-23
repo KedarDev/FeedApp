@@ -7,11 +7,12 @@ import org.springframework.data.domain.Page;
 
 public class PageResponse<T> {
 
-	int pageNum;
-	int pageSize;
-	int totalPages;
-	List<T> content;
+	int pageNum; // represents current page number
+	int pageSize; // represents number of items per page
+	int totalPages; 
+	List<T> content; // List of generic type
 	
+
 	public PageResponse(Page<T> paged) {
 
 		if (Optional.ofNullable(paged).isPresent()) {
@@ -22,6 +23,7 @@ public class PageResponse<T> {
 		}
 	}
 
+	// GETTERS & SETTERS
 	public int getPageNum() {
 		return pageNum;
 	}

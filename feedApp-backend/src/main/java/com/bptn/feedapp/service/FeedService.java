@@ -25,11 +25,13 @@ import com.bptn.feedapp.repository.FeedMetaDataRepository;
 import com.bptn.feedapp.repository.FeedRepository;
 import com.bptn.feedapp.repository.UserRepository;
 
-@Service
+@Service // Spring service class
 public class FeedService {
-	
+	 
+	// log activity 
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	// inject instances
 	@Autowired
 	UserRepository userRepository;
 
@@ -38,17 +40,21 @@ public class FeedService {
 
 	@Autowired
 	FeedMetaDataRepository feedMetaDataRepository;
-	
+
+	// create feed
 	public Feed createFeed(Feed feed) {
 
+		// Retrieve the username of the currently logged-in user
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		User user = this.userRepository.findByUsername(username)
 					.orElseThrow(() -> new UserNotFoundException(String.format("Username doesn't exist, %s", username)));
 
+	    // Set the user attribute of the Feed object to the retrieved user
 		feed.setUser(user);
 		feed.setCreatedOn(Timestamp.from(Instant.now()));
 
+		// save the feed object
 		return this.feedRepository.save(feed);
 	}
 	

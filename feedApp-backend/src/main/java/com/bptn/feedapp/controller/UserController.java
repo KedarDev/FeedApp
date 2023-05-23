@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.bptn.feedapp.jpa.Profile;
 
-
+// @CrossOrigin used to enable Cross-Origin Resource Sharing (CORS) It allows web applications running on different domains to access resources from each other
 @CrossOrigin(exposedHeaders = "Authorization")
 // @RestController annotation tells spring that this class is a controller and will process user requests
 @RestController
@@ -99,15 +99,17 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/verify/email")
+	// HTTP GET Path
+	@GetMapping("/verify/email") 
 	public void verifyEmail() {
 			
+		// log activities
 		logger.debug("Verifying Email");
 			
 		this.userService.verifyEmail();
 	}
 	
-	
+	// HTTP POST Path
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody User user) {
 		
@@ -137,6 +139,7 @@ public class UserController {
 
 		logger.debug("Resetting Password, password: {}", json.get("password").asText());
 
+		// password is being reset and extract the new password from the JSON object 
 		this.userService.resetPassword(json.get("password").asText());
 	}
 	

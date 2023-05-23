@@ -80,7 +80,7 @@ public class UserService {
 		this.validateUsernameAndEmail(user.getUsername(), user.getEmailId());
 
 		user.setEmailVerified(false); // set emailVerified to false
-		user.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		user.setPassword(this.passwordEncoder.encode(user.getPassword())); // encode password
 		user.setCreatedOn(Timestamp.from(Instant.now())); // timestamp
 
 		this.emailService.sendVerificationEmail(user);
@@ -92,11 +92,15 @@ public class UserService {
 
 	private void validateUsernameAndEmail(String username, String emailId) {
 
+		// Call the findByUser() from the UserRepository class
 		this.userRepository.findByUsername(username).ifPresent(u -> {
+			// if the user name exists throw an exception
 			throw new UsernameExistException(String.format("Username already exists, %s", u.getUsername()));
 		});
 
+		// Call the findByEmailId() from the UserRepository class
 		this.userRepository.findByEmailId(emailId).ifPresent(u -> {
+			// if the emil exist throw an exception
 			throw new EmailExistException(String.format("Email already exists, %s", u.getEmailId()));
 		});
 
@@ -104,6 +108,7 @@ public class UserService {
 
 	public void verifyEmail() {
 
+		// retrieve email from ContextHolder
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
 		User user = this.userRepository.findByUsername(username)
@@ -116,6 +121,7 @@ public class UserService {
 
 	private static User isEmailVerified(User user) {
 
+		// check if email is verified if not throw an exception
 		if (user.getEmailVerified().equals(false)) {
 			throw new EmailNotVerifiedException(String.format("Email requires verification, %s", user.getEmailId()));
 		}
@@ -123,6 +129,7 @@ public class UserService {
 		return user;
 	}
 
+	// helper methos
 	private Authentication authenticate(String username, String password) {
 		return this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 	}
@@ -136,6 +143,7 @@ public class UserService {
 		return this.userRepository.findByUsername(user.getUsername()).map(UserService::isEmailVerified).get();
 	}
 
+	// generates a JWT token for a given username and returns the header with a generated token
 	public HttpHeaders generateJwtHeader(String username) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add(AUTHORIZATION, this.jwtService.generateJwtToken(username, this.provider.getJwtExpiration()));
@@ -154,6 +162,7 @@ public class UserService {
 		}
 	}
 
+	// Retrieve the username of the currently logged-in user from the SecurityContextHolder
 	public void resetPassword(String password) {
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -167,6 +176,9 @@ public class UserService {
 	}
 
 	public User getUser() {
+		
+		// Retrieve the authenticated user's username using SecurityContextHolder
+
 
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -177,6 +189,7 @@ public class UserService {
 
 	private void updateValue(Supplier<String> getter, Consumer<String> setter) {
 
+		//  create an Optional instance of the value returned by the getter
 		Optional.ofNullable(getter.get())
 				// .filter(StringUtils::hasText)
 				.map(String::trim)
@@ -186,8 +199,8 @@ public class UserService {
 	private void updatePassword(Supplier<String> getter, Consumer<String> setter) {
 
 		Optional.ofNullable(getter.get())
-				.filter(StringUtils::hasText)
-				.map(this.passwordEncoder::encode)
+				.filter(StringUtils::hasText) // check if the Optional value is not null and has text
+				.map(this.passwordEncoder::encode) //  apply a password encoding operation to the Optional value.
 				.ifPresent(setter);
 	}
 

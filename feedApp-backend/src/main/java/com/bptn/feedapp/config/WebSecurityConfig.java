@@ -19,10 +19,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+// WebSecurityConfig class. The @Configuration annotation indicates that this class contains Spring configuration. 
+// @EnableWebSecurity enables the Spring Security configuration
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+	// injected instances 
 	@Autowired
 	ResourceProvider provider;
 
@@ -35,7 +38,6 @@ public class WebSecurityConfig {
 	
 	@Bean // returns an instance of BCryptPasswordEncoder. This bean is used to encode passwords and verify them during authentication
 	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
 	}
 
 	@Bean //  responsible for authenticating users
