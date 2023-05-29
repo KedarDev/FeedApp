@@ -75,7 +75,7 @@ public class User implements Serializable { // Serializable is an interface that
 	@OneToMany(mappedBy="user") // One-to-many relationship
 	private List<FeedMetaData> feedMetaData;
 	
-	// you must have a constructor when using entities
+	// constructor 
 	public User() {
 		
 	}
