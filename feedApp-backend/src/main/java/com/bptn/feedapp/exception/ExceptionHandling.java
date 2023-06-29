@@ -58,7 +58,7 @@ public class ExceptionHandling implements ErrorController {
 	private static final String NO_MAPPING_EXIST_URL = "There is no mapping for this URL";
 	private static final String ERROR_PATH = "/error";
 	
-	// HTTP Resoinse Method
+	// HTTP Response Method
 	private ResponseEntity<HttpResponse> createHttpResponse(HttpStatus httpStatus, String message) {
 	    return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, // HTTP instence 
 	    			httpStatus.getReasonPhrase().toUpperCase(), message), httpStatus);
