@@ -4,6 +4,7 @@
 package com.bptn.feedapp.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.bptn.feedapp.filter.CustomAuthEntryPoint;
@@ -19,13 +20,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-// WebSecurityConfig class. The @Configuration annotation indicates that this class contains Spring configuration. 
-// @EnableWebSecurity enables the Spring Security configuration
+@EnableAsync
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-	// injected instances 
 	@Autowired
 	ResourceProvider provider;
 
@@ -35,18 +34,18 @@ public class WebSecurityConfig {
 	@Autowired
 	CustomAuthEntryPoint customAuthEntryPoint;
 
-	
-	@Bean // returns an instance of BCryptPasswordEncoder. This bean is used to encode passwords and verify them during authentication
+	@Bean
 	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
-	@Bean //  responsible for authenticating users
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) //required to create an instance of AuthenticationManager
+	@Bean
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
 			throws Exception {
-		return authenticationConfiguration.getAuthenticationManager(); 
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
-	@Bean // configures the security filter chain for the application
+	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 				.sessionManagement().sessionCreationPolicy(STATELESS)
