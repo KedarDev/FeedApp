@@ -91,13 +91,12 @@ const Dashboard = () => {
                 <FeedCard
                   key={feedId}
                   feedId={feedId}
-                  picture={picture}
                   content={content}
                   createdOn={createdOn}
                   username={user.username}
                   firstName={user.firstName}
                   lastName={user.lastName}
-                  profilePicture={user.profile.picture}
+                  profilePicture={user.picture}
                   feedMetaData={feedMetaData}
                 />
               )

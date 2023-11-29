@@ -2,13 +2,21 @@
     "configurations": [
         {
             "type": "java",
+            "name": "FeedAppApplication",
+            "request": "launch",
+            "mainClass": "com.bptn.feedapp.FeedAppApplication",
+            "projectName": "feedApp1"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-FeedApp1Application<feedApp1>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.bptn.feedapp.FeedApp1Application",
             "projectName": "feedApp1",
             "args": "",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=63930 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=feedApp1"
         }
     ]
 }

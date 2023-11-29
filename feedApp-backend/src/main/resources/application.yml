@@ -24,7 +24,7 @@ spring:
     # Email Settings
   mail:
     username: kedar.h.dev@gmail.com
-    password: ifsukvvamtmzuwxn
+    password: eisw xols qekn jvld
     host: smtp.gmail.com
     port: 587
     protocol: smtp
@@ -69,9 +69,9 @@ spring:
        
 # Database Settings
   datasource: 
-    url: jdbc:postgresql://localhost:5432/feedAppModal #  Database URL
+    url: jdbc:postgresql://localhost:5432/FeedApp #  Database URL
     username: postgres # Database username
-    password: pg123 # Database password
+    password: Blessed4life$ # Database password
     hikari: # Spring uses hikari for a connection pool to the DB
       maximum-pool-size: 2
   jpa: # Tells Hibernate to validate the JPA Entities versus the database tables. Throws an Exception if the validation fails.
@@ -82,7 +82,7 @@ spring:
 ---      
 # Prod Profile
 server:
-  port: 8080
+  port: 8081
   
 spring:
   config:
@@ -91,9 +91,9 @@ spring:
   
 # Database Settings 
   datasource:
-    url: jdbc:postgresql://localhost:5432/feedAppModal
+    url: jdbc:postgresql://localhost:5432/FeedApp
     username: postgres
-    password: pg123
+    password: Blessed4life$
     hikari:
       maximum-pool-size: 2
   jpa:
