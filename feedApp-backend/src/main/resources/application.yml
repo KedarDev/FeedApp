@@ -71,7 +71,7 @@ spring:
   datasource: 
     url: jdbc:postgresql://localhost:5432/FeedApp #  Database URL
     username: postgres # Database username
-    password: Blessed4life$ # Database password
+    password:  # Database password
     hikari: # Spring uses hikari for a connection pool to the DB
       maximum-pool-size: 2
   jpa: # Tells Hibernate to validate the JPA Entities versus the database tables. Throws an Exception if the validation fails.
@@ -93,7 +93,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/FeedApp
     username: postgres
-    password: Blessed4life$
+    password: 
     hikari:
       maximum-pool-size: 2
   jpa:

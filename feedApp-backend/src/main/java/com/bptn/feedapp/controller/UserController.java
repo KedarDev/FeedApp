@@ -37,7 +37,7 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	// GetMapping is telling use that testController() will handle requests
+	// GetMapping is telling us that testController() will handle requests
 	@GetMapping("/test")
 	public String testController() {
 		// Call the debug() method from logger and print out a comment

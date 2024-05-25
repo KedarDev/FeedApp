@@ -96,10 +96,7 @@ const AppRoutes = () => {
           <Route exact path="/app/dashboard" element={<Dashboard />} />
           <Route exact path="/app/myFeeds" element={<MyFeeds />} />
           <Route exact path="/app/profile" element={<Profile />} />
-          <Route
-            exact
-            path="/app/completeProfile"
-            element={<CompleteProfile />}
+          <Route exact path="/app/completeProfile" element={<CompleteProfile />}
           />
         </Routes>
       </Wrapper>

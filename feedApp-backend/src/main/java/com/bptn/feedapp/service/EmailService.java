@@ -43,6 +43,7 @@ public class EmailService {
 		this.sendEmail(user, this.provider.getClientVerifyParam(), "verify_email",
 				String.format("Welcome %s %s", user.getFirstName(), user.getLastName()),
 				this.provider.getClientVerifyExpiration());
+				
 	}
 	
 	@Async // Asynchronous
