@@ -6,6 +6,6 @@ import com.bptn.feedapp.jpa.FeedMetaData;
 
 public interface FeedMetaDataRepository extends JpaRepository<FeedMetaData, Integer> {
 
-    // since the this Repo extends JpaRepo the basics CRUD operations will do no extra methods needed
+    // since the this Repo extends JpaRepo the basics CRUD operations no extra methods needed
 	
 }

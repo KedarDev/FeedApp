@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+/feedapp.sql
+/feedAppModal.sql
+/feedAppModalSecond.sql
 
 # testing
 /coverage
