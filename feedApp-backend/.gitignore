@@ -32,6 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-/feedapp.sql
-/feedAppModal.sql
-/feedAppModalSecond.sql
+feedapp.sql/
+feedAppModal.sql/
+feedAppModalSecond.sql/
